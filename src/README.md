@@ -13,7 +13,6 @@ Muestra qué cambió desde el último commit.
 🔹 2️⃣ Agregar todos los cambios nuevos o modificados
 git add .
 
-
 El punto (.) agrega todos los archivos cambiados.
 
 🔹 3️⃣ Guardar los cambios en un commit
