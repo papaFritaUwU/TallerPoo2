@@ -14,10 +14,7 @@ public class Main {
         leerPcs();
         leerPuertos();
 
-        System.out.println("hola");
-
-
-		System.out.println("Bienvenido: ");
+        
 
         
 
@@ -34,7 +31,11 @@ public class Main {
             int numero = Integer.valueOf(partes[1]);
             String estado = partes[2];
             Puerto p = new Puerto(id, numero, estado);
-            for (Pc p : pcs) {
+            for (Pc pc : pcs) {
+                if (pc.getId().equals(id)) {
+                    pc.getPuertos().add(p);
+                }
+
                 
             }
 
@@ -54,22 +55,6 @@ public class Main {
             String so = partes[2];
             Pc p = new Pc(id, ip, so);
             pcs.add(p);
-            
-            
-            //shi, lo q yo hago es
-            //git status (para ver q se cambio)
-            //git add .
-            //git commit -m "commit"
-            //git push (para subirlo al repo)
-            
-            //quizas sea por eso, prueba a ver q onda
-			//calmao
-            //SOLO HAY UNA TERMINARL
-            //COMPARTIMOS TERMINALES
-            //no
-            //nada
-            //🧐
-
 			
         }
     }
