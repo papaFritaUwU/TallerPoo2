@@ -26,7 +26,7 @@ public class Main {
 		scan = new Scanner(file);
 		
 		while (scan.hasNextLine()) {
-            
+            String = linea
         }
     }
 
