@@ -1,7 +1,7 @@
 # 🧭💡 Proyecto TallerPoo2
 
 ## 🚀 Comandos básicos para trabajar con Git y GitHub
-Antes que todo hay que guardar los cambios en el vsc con el ctrl + s
+### Antes que todo hay que guardar los cambios en el vsc con el ctrl + s !!
 
 ### 🔹 1️⃣ Ver el estado actual del proyecto
 ```bash
