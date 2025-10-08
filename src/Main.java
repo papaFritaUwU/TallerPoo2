@@ -14,6 +14,8 @@ public class Main {
         leerPcs();
         leerPuertos();
 
+        System.out.println("hola");
+
 
 		System.out.println("Bienvenido: ");
 
@@ -22,11 +24,21 @@ public class Main {
 	}
 
 	private static void leerPuertos() throws FileNotFoundException {
-         File file = new File("puertos.txt");
+        File file = new File("puertos.txt");
 		scan = new Scanner(file);
 		
 		while (scan.hasNextLine()) {
-            String = linea
+            String linea = scan.nextLine();
+            String [] partes = linea.split(";");
+            String id = partes[0];
+            int numero = Integer.valueOf(partes[1]);
+            String estado = partes[2];
+            Puerto p = new Puerto(id, numero, estado);
+            for (Pc p : pcs) {
+                
+            }
+
+
         }
     }
 
