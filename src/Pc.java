@@ -6,6 +6,7 @@ public class Pc {
 	private String sO;
 	private ArrayList<Puerto> puertos;
 	
+	
 	public Pc(String id, String ip, String sO) {
 		this.id = id;
 		this.ip = ip;
@@ -28,9 +29,12 @@ public class Pc {
 	public ArrayList<Puerto> getPuertos() {
 		return puertos;
 	}
-	
-	
-	
-	
-	
+
+	public void imprimirPC() {
+		System.out.println("\nId: " + id + " | IP: " + ip + " | Sistema Operativo: " + sO);
+		System.out.println("Puertos: ");
+		for (Puerto p : puertos) {
+			System.out.println(p);
+		}
+	}
 }

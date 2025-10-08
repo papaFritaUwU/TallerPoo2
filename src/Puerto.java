@@ -29,7 +29,16 @@ public class Puerto {
 		return vulnerabilidades;
 	}
 	
-	
-	
-	
+	public void imprimirVulnerabilidadesPuerto() {
+		System.out.println("Vulnerabilidad | Descripción");
+		for (Vulnerabilidad v : vulnerabilidades) {
+			System.out.println(v.getNombreV() + " | " + v.getDescripcion());
+			System.out.println();
+		}
+	}
+
+	@Override
+	public String toString() {
+		return "N°: " + numeroPuerto + " | Estado: " + estado;
+	}
 }

@@ -1,3 +1,10 @@
+/* Nombre: Ninibeth Pérez Cortés, RUT: 21.787.686-9, Carrera: ICCI | Nombre: Rodrigo Reyes Alfaro, RUT: 22.123.808-7, Carrera: ICCI
+ * Nombre: Ninibeth Pérez Cortés, RUT: 21.787.686-9, Carrera: ICCI | Nombre: Rodrigo Reyes Alfaro, RUT: 22.123.808-7, Carrera: ICCI
+ * Nombre: Ninibeth Pérez Cortés, RUT: 21.787.686-9, Carrera: ICCI | Nombre: Rodrigo Reyes Alfaro, RUT: 22.123.808-7, Carrera: ICCI
+ * Nombre: Ninibeth Pérez Cortés, RUT: 21.787.686-9, Carrera: ICCI | Nombre: Rodrigo Reyes Alfaro, RUT: 22.123.808-7, Carrera: ICCI
+ * Nombre: Ninibeth Pérez Cortés, RUT: 21.787.686-9, Carrera: ICCI | Nombre: Rodrigo Reyes Alfaro, RUT: 22.123.808-7, Carrera: ICCI
+ */
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -16,18 +23,33 @@ public class Main {
         leerPuertos();
         leerVulnerabilidades();
         
-        int opcion = 0;
+        scan = new Scanner(System.in);
+        System.out.print("Usuario: ");
+        String username = scan.nextLine();
+        Boolean encontrado = false;
         
-        //do {
-        	
-        //} while(opcion != -1);
+        System.out.print("Contraseña: ");
+        String contraseña = scan.nextLine();
+        //hacer función para hashear la contraseña
+        //hashearContraseña(String contraseña);
+        String contraseñaHasheada = "";
         
-
+        for (Usuario u : usuarios) {           //& u.getContraseña().equals(contraseñaHasheada)
+        	if (u.getUsername().equals(username)) {
+    			if (u.getRol().equals("ADMIN")) {
+    				menuAdmin();
+    			} else {
+    				menuUsuario();
+    			}
+        System.out.println("Acceso denegado. Usuario/Contraseña incorrecto.");
+        	}
+        }
 	}
 	
 	//---------------------------------- MENU ADMIN -------------------------------------------
 	
-	private void menuAdmin(Scanner scan) {
+	private static void menuAdmin() {
+		scan = new Scanner(System.in);
         int opcion = -1;
         do {
             System.out.println("\n--- MENÚ ADMIN ---");
@@ -73,23 +95,24 @@ public class Main {
 	
 	
 	
-	private void clasificarPCs() {
+	private static void clasificarPCs() {
 		// TODO Auto-generated method stub
 		
 	}
 
-	private void eliminarPC() {
+	private static void eliminarPC() {
 		// TODO Auto-generated method stub
 		
 	}
 
-	private void agregarPC() {
+	private static void agregarPC() {
 		// TODO Auto-generated method stub
 		
 	}
 
 	//---------------------------------- MENU USUARIO -------------------------------------------
-	private void menuUsuario(Scanner scan) {
+	private static void menuUsuario() {
+		scan = new Scanner(System.in);
         int opcion = -1;
         do {
             System.out.println("\n--- MENÚ USUARIO ---");
@@ -129,22 +152,30 @@ public class Main {
         } while (opcion != 0);
     }
 	
-	private void verPCs() {
+	private static void verPCs() {
+		for (Pc pc : pcs) {
+			pc.imprimirPC();
+		}
+	}
+
+	private static void escanearPC() {
 		// TODO Auto-generated method stub
 		
 	}
 
-	private void escanearPC() {
-		// TODO Auto-generated method stub
-		
+	private static void verTotalPuertosAbiertos() {
+		for (Pc pc : pcs) {
+			System.out.println("-------------------------------------------------------------------------------------------------------------------------------");
+			System.out.println("                                                       PC: " + pc.getId());
+			for (Puerto pu : pc.getPuertos()) {
+				System.out.println("Puerto: " + pu.getNumeroPuerto());
+				pu.imprimirVulnerabilidadesPuerto();
+			}
+		}
+		System.out.println("-------------------------------------------------------------------------------------------------------------------------------");
 	}
 
-	private void verTotalPuertosAbiertos() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	private void ordenarSegunIP() {
+	private static void ordenarSegunIP() {
 		// TODO Auto-generated method stub
 		
 	}
@@ -166,7 +197,6 @@ public class Main {
             for (Puerto p : puertos) {
             	if (p.getNumeroPuerto() == puerto) {
             		p.getVulnerabilidades().add(v);
-            		break;
             	}
             }
 		}
