@@ -165,19 +165,23 @@ public class Main {
 
 	private static void verTotalPuertosAbiertos() {
 		for (Pc pc : pcs) {
-			System.out.println("-------------------------------------------------------------------------------------------------------------------------------");
-			System.out.println("                                                       PC: " + pc.getId());
+			System.out.println("-------------------------------------------------------------------------------------------------------------------");
+			System.out.println("                                                  PC: " + pc.getId());
 			for (Puerto pu : pc.getPuertos()) {
 				System.out.println("Puerto: " + pu.getNumeroPuerto());
 				pu.imprimirVulnerabilidadesPuerto();
 			}
 		}
-		System.out.println("-------------------------------------------------------------------------------------------------------------------------------");
+		System.out.println("-------------------------------------------------------------------------------------------------------------------");
 	}
 
 	private static void ordenarSegunIP() {
-		// TODO Auto-generated method stub
-		
+        ArrayList<Pc> pcsOrdenadas = pcs;
+		for (Pc pc : pcs) {
+            int id = Integer.valueOf(pc.getId());
+            //if ()
+
+        }
 	}
 	
 	//------------------------- LECTURA ARCH ---------------------------------
