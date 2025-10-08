@@ -12,6 +12,7 @@ public class Main {
 	public static void main(String[] args) throws FileNotFoundException {
 		leerUsuario();
         leerPcs();
+        leerPuertos();
 
 
 		System.out.println("Bienvenido: ");
@@ -20,7 +21,16 @@ public class Main {
 
 	}
 
-	private static void leerPcs() throws FileNotFoundException {
+	private static void leerPuertos() throws FileNotFoundException {
+         File file = new File("puertos.txt");
+		scan = new Scanner(file);
+		
+		while (scan.hasNextLine()) {
+            
+        }
+    }
+
+    private static void leerPcs() throws FileNotFoundException {
         File file = new File("pcs.txt");
 		scan = new Scanner(file);
 		
@@ -33,8 +43,22 @@ public class Main {
             Pc p = new Pc(id, ip, so);
             pcs.add(p);
             
-            voy a intentar subir los cambios q hemos hecho ahora, mira
-           
+            
+            //shi, lo q yo hago es
+            //git status (para ver q se cambio)
+            //git add .
+            //git commit -m "commit"
+            //git push (para subirlo al repo)
+            
+            //quizas sea por eso, prueba a ver q onda
+			//calmao
+            //SOLO HAY UNA TERMINARL
+            //COMPARTIMOS TERMINALES
+            //no
+            //nada
+            //🧐
+
+			
         }
     }
 
