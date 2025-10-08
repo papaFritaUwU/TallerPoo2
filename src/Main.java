@@ -9,6 +9,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Main {
 
@@ -159,7 +161,17 @@ public class Main {
 	}
 
 	private static void escanearPC() {
-		// TODO Auto-generated method stub
+		try{
+			FileWriter writer = new FileWriter("reportes.txt", true);
+			writer.write("Holamish");
+			System.out.println("linea agregada");
+
+			}catch(IOException e){
+
+			e.printStackTrace();
+		}
+
+		
 		
 	}
 
@@ -174,6 +186,7 @@ public class Main {
 		}
 		System.out.println("-------------------------------------------------------------------------------------------------------------------");
 	}
+	
 
 	private static void ordenarSegunIP() {
         ArrayList<Pc> pcsOrdenadas = pcs;
