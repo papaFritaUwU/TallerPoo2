@@ -12,6 +12,23 @@ public class Puerto {
 		this.estado = estado;
 		this.vulnerabilidades = new ArrayList<>();
 	}
+
+	public String getPc() {
+		return pc;
+	}
+
+	public int getNumeroPuerto() {
+		return numeroPuerto;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public ArrayList<Vulnerabilidad> getVulnerabilidades() {
+		return vulnerabilidades;
+	}
+	
 	
 	
 	

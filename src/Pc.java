@@ -12,6 +12,24 @@ public class Pc {
 		this.sO = sO;
 		this.puertos = new ArrayList<>();
 	}
+
+	public String getId() {
+		return id;
+	}
+
+	public String getIp() {
+		return ip;
+	}
+
+	public String getsO() {
+		return sO;
+	}
+
+	public ArrayList<Puerto> getPuertos() {
+		return puertos;
+	}
+	
+	
 	
 	
 	
