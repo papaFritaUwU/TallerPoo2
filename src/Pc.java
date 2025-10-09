@@ -17,7 +17,7 @@ public class Pc {
 	public String getId() {
 		return id;
 	}
-
+	
 	public String getIp() {
 		return ip;
 	}
@@ -31,7 +31,7 @@ public class Pc {
 	}
 
 	public void imprimirPC() {
-		System.out.println("\nId: " + id + " | IP: " + ip + " | Sistema Operativo: " + sO);
+		System.out.println("Id: " + id + " | IP: " + ip + " | Sistema Operativo: " + sO);
 		System.out.println("Puertos: ");
 		for (Puerto p : puertos) {
 			System.out.println(p);
