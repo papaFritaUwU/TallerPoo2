@@ -9,15 +9,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
-
-
-
 import java.io.FileWriter;
 import java.io.IOException;
 
 public class Main {
 
-	private static Scanner scan;
+	private static Scanner scan = new Scanner(System.in);
 	private static ArrayList<Pc> pcs = new ArrayList<>();
     private static ArrayList<Usuario> usuarios = new ArrayList<>();
     private static ArrayList<Puerto> puertos = new ArrayList<>();
@@ -38,17 +35,18 @@ public class Main {
         //hacer función para hashear la contraseña
         //hashearContraseña(String contraseña);
         String contraseñaHasheada = "";
-        
-        for (Usuario u : usuarios) {           
-        	if (u.getUsername().equals(username)) { //if (u.getUsername().equals(username) & u.getContraseña().equals(contraseñaHasheada))
+        Boolean NoAcceso = true;
+        for (Usuario u : usuarios) {           //& u.getContraseña().equals(contraseñaHasheada)
+        	if (u.getUsername().equals(username)) {
+        		NoAcceso = false;
     			if (u.getRol().equals("ADMIN")) {
     				menuAdmin();
     			} else {
     				menuUsuario();
     			}
-        System.out.println("Acceso denegado. Usuario/Contraseña incorrecto.");
         	}
         }
+        if (NoAcceso) {System.out.println("Acceso denegado. \nUsuario/Contraseña incorrecto.");}
 	}
 	
 	//---------------------------------- MENU ADMIN -------------------------------------------
@@ -101,10 +99,32 @@ public class Main {
 	
 	
 	private static void clasificarPCs() {
-		// TODO Auto-generated method stub
-		
+		imprimirGuiones();
+		System.out.println("Nivel de riesgo de PCs");
+		int cantV = 0;
+		for (Pc pc : pcs) {
+			for (Puerto p : pc.getPuertos()) {
+				cantV += p.getVulnerabilidades().size();
+			}
+			String nivelR = "";
+			if (cantV == 0) {
+				nivelR = "Bajo riesgo";
+			} else if (cantV <= 2) {
+				nivelR = "Medio riesgo";
+			} else {
+				nivelR = "Alto riesgo";
+			}
+			
+			System.out.println("PC: " + pc.getId() + " | Nivel de riesgo: " + nivelR);
+			System.out.println("\n                 Vulnerabilidad        |        Descripción");
+			for (Puerto p : pc.getPuertos()) {
+				System.out.print("Puerto: " + p.getNumeroPuerto() + " | ");
+				p.imprimirVulnerabilidadesPuerto();
+			}
+			imprimirGuiones();
+		}
 	}
-
+	
 	private static void eliminarPC() {
 		// TODO Auto-generated method stub
 		
@@ -154,18 +174,19 @@ public class Main {
                 	System.out.println("Opción inválida.");
                 	break;
             }
+            
         } while (opcion != 0);
     }
 	
 	private static void verPCs() {
-		System.out.println("-------------------------------------------------------------------------------------------------------------------");
+		imprimirGuiones();
 		for (Pc pc : pcs) {
 			pc.imprimirPC();
-		} System.out.println("-------------------------------------------------------------------------------------------------------------------");
+		} imprimirGuiones();
 	}
 
 	private static void escanearPC() {
-		System.out.println("-------------------------------------------------------------------------------------------------------------------");
+		imprimirGuiones();
 		int i = 1;
 		for(Pc p: pcs) {
 			System.out.println(i++ + ") " + p);
@@ -177,19 +198,14 @@ public class Main {
 		do {
 			System.out.println("Ingrese el indice correspondiente al PC a Escanear: ");
 			opcion = Integer.valueOf(scan.nextLine());
-			
-			
 		}while(opcion >= i);
 		
 		Pc PCdeseado = pcs.get(opcion-1);
-		System.out.println("-------------------------------------------------------------------------------------------------------------------");
+		imprimirGuiones();
 		System.out.println("Puertos correspondientes al PC numero " + opcion + ":");
 		for(Puerto p: PCdeseado.getPuertos()) {
 			System.out.println(p);
-			
 		}
-		
-		
 		String aux;
 		
 		System.out.println("Si desea continuar con la Escaneo indique la fecha de hoy con el esquema (dia/mes/año), de lo contrario escriba SALIR: ");
@@ -199,11 +215,7 @@ public class Main {
 			try {
 				
 	            FileWriter writer = new FileWriter("Metricas.txt", true);
-	            
-	            
 	            writer.close();
-
-	            
 	        } catch (IOException e) {
 	            e.printStackTrace();
 	        }
@@ -211,37 +223,31 @@ public class Main {
 		}else {
 			System.out.println("Escaneo Cancelado");
 		}
-		
-		
-		
-		
     }
-		
-		
-		
-	
 
 	private static void verTotalPuertosAbiertos() {
 		System.out.println("Total de puertos abiertos en todos los PCs de la red");
 		for (Pc pc : pcs) {
-			System.out.println("-------------------------------------------------------------------------------------------------------------------");
+			imprimirGuiones();
 			System.out.println("                                                       PC: " + pc.getId());
 			for (Puerto pu : pc.getPuertos()) {
 				System.out.println("Puerto: " + pu.getNumeroPuerto());
+				System.out.println("Vulnerabilidad | Descripción");
+				System.out.print("- ");
 				pu.imprimirVulnerabilidadesPuerto();
 			}
 		}
-		System.out.println("-------------------------------------------------------------------------------------------------------------------");
+		imprimirGuiones();
 	}
 
 	private static void ordenarSegunIP() {
 		ArrayList<Pc> pcsOrdenadas = new ArrayList<>(pcs);
 		ordenarPc(pcsOrdenadas);
-		System.out.println("-------------------------------------------------------------------------------------------------------------------");
+		imprimirGuiones();
 		System.out.println("PCs según su clase IP");
 		for (Pc pc : pcsOrdenadas) {
 			System.out.println("PC: " + pc.getId() + " | Clase IP: " + claseIp(pc.getIp()) + " | IP: " + pc.getIp());
-		} System.out.println("-------------------------------------------------------------------------------------------------------------------");
+		} imprimirGuiones();
 	}
 	
 	private static String claseIp(String ip) {
@@ -282,7 +288,6 @@ public class Main {
 	        if (iP1 < iP2) { 
 	        	return false;  
 	        }
-	        
 	    }
 	    return false; 
 	}
@@ -360,5 +365,8 @@ public class Main {
             usuarios.add(u);
         }
 	}
+    
+    private static void imprimirGuiones() {
+    	System.out.println("-------------------------------------------------------------------------------------------------------------------");
+    }
 }
-
