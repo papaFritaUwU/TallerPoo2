@@ -30,10 +30,8 @@ public class Puerto {
 	}
 	
 	public void imprimirVulnerabilidadesPuerto() {
-		System.out.println("Vulnerabilidad | Descripción");
 		for (Vulnerabilidad v : vulnerabilidades) {
 			System.out.println(v.getNombreV() + " | " + v.getDescripcion());
-			System.out.println();
 		}
 	}
 
