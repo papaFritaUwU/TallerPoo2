@@ -10,9 +10,14 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+
+
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class Main {
 
-	private static Scanner scan = new Scanner(System.in);
+	private static Scanner scan;
 	private static ArrayList<Pc> pcs = new ArrayList<>();
     private static ArrayList<Usuario> usuarios = new ArrayList<>();
     private static ArrayList<Puerto> puertos = new ArrayList<>();
@@ -160,9 +165,61 @@ public class Main {
 	}
 
 	private static void escanearPC() {
-		// TODO Auto-generated method stub
+		System.out.println("-------------------------------------------------------------------------------------------------------------------");
+		int i = 1;
+		for(Pc p: pcs) {
+			System.out.println(i++ + ") " + p);
+
+		}
+		scan = new Scanner(System.in);
+		int opcion = 0;
 		
-	}
+		do {
+			System.out.println("Ingrese el indice correspondiente al PC a Escanear: ");
+			opcion = Integer.valueOf(scan.nextLine());
+			
+			
+		}while(opcion >= i);
+		
+		Pc PCdeseado = pcs.get(opcion-1);
+		System.out.println("-------------------------------------------------------------------------------------------------------------------");
+		System.out.println("Puertos correspondientes al PC numero " + opcion + ":");
+		for(Puerto p: PCdeseado.getPuertos()) {
+			System.out.println(p);
+			
+		}
+		
+		
+		String aux;
+		
+		System.out.println("Si desea continuar con la Escaneo indique la fecha de hoy con el esquema (dia/mes/año), de lo contrario escriba SALIR: ");
+		aux = scan.nextLine();
+			
+		if(aux != "SALIR") {
+			try {
+				
+	            FileWriter writer = new FileWriter("Metricas.txt", true);
+	            
+	            
+	            writer.close();
+
+	            
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+		
+		}else {
+			System.out.println("Escaneo Cancelado");
+		}
+		
+		
+		
+		
+    }
+		
+		
+		
+	
 
 	private static void verTotalPuertosAbiertos() {
 		System.out.println("Total de puertos abiertos en todos los PCs de la red");
@@ -304,3 +361,4 @@ public class Main {
         }
 	}
 }
+
