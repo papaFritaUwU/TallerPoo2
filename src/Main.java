@@ -9,8 +9,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.io.FileWriter;
-import java.io.IOException;
 
 public class Main {
 
@@ -155,30 +153,22 @@ public class Main {
     }
 	
 	private static void verPCs() {
+		System.out.println("-------------------------------------------------------------------------------------------------------------------");
 		for (Pc pc : pcs) {
 			pc.imprimirPC();
-		}
+		} System.out.println("-------------------------------------------------------------------------------------------------------------------");
 	}
 
 	private static void escanearPC() {
-		try{
-			FileWriter writer = new FileWriter("reportes.txt", true);
-			writer.write("Holamish");
-			System.out.println("linea agregada");
-
-			}catch(IOException e){
-
-			e.printStackTrace();
-		}
-
-		
+		// TODO Auto-generated method stub
 		
 	}
 
 	private static void verTotalPuertosAbiertos() {
+		System.out.println("Total de puertos abiertos en todos los PCs de la red");
 		for (Pc pc : pcs) {
 			System.out.println("-------------------------------------------------------------------------------------------------------------------");
-			System.out.println("                                                  PC: " + pc.getId());
+			System.out.println("                                                       PC: " + pc.getId());
 			for (Puerto pu : pc.getPuertos()) {
 				System.out.println("Puerto: " + pu.getNumeroPuerto());
 				pu.imprimirVulnerabilidadesPuerto();
@@ -186,17 +176,60 @@ public class Main {
 		}
 		System.out.println("-------------------------------------------------------------------------------------------------------------------");
 	}
-	
 
 	private static void ordenarSegunIP() {
-        ArrayList<Pc> pcsOrdenadas = pcs;
-		for (Pc pc : pcs) {
-            int id = Integer.valueOf(pc.getId());
-            //if ()
-
-        }
+		ArrayList<Pc> pcsOrdenadas = new ArrayList<>(pcs);
+		ordenarPc(pcsOrdenadas);
+		System.out.println("-------------------------------------------------------------------------------------------------------------------");
+		System.out.println("PCs según su clase IP");
+		for (Pc pc : pcsOrdenadas) {
+			System.out.println("PC: " + pc.getId() + " | Clase IP: " + claseIp(pc.getIp()) + " | IP: " + pc.getIp());
+		} System.out.println("-------------------------------------------------------------------------------------------------------------------");
 	}
 	
+	private static String claseIp(String ip) {
+		String [] ipPartes = ip.split("\\.");
+		int ipParte1 = Integer.valueOf(ipPartes[0]);
+		if (0 <= ipParte1 & ipParte1 <= 127) {
+			return "A";
+		} else if (128 <= ipParte1 & ipParte1 <= 191) {
+			return "B";
+		} else {
+			return "C";
+		}
+	}
+
+	private static void ordenarPc(ArrayList<Pc> pcsOrdenadas) {
+		for (int i = 0; i < pcs.size() - 1; i++) {
+        	for (int j = i + 1; j < pcs.size(); j++) {
+        		if (compararIp(pcsOrdenadas.get(i).getIp(), pcsOrdenadas.get(j).getIp())) {
+        			Pc aux = pcsOrdenadas.get(i);
+                    pcsOrdenadas.set(i, pcsOrdenadas.get(j));
+                    pcsOrdenadas.set(j, aux);
+        		}
+        	}
+        }
+	}
+
+	private static boolean compararIp(String ip, String ip2) {
+		String [] ipPartes = ip.split("\\.");
+		String [] ipPartes2 = ip2.split("\\.");
+		
+		for (int i = 0; i < 4; i++) {
+			int iP1 = Integer.valueOf(ipPartes[i]);
+			int iP2 = Integer.valueOf(ipPartes2[i]);
+			
+			if (iP1 > iP2) {
+				return true;  
+			}
+	        if (iP1 < iP2) { 
+	        	return false;  
+	        }
+	        
+	    }
+	    return false; 
+	}
+
 	//------------------------- LECTURA ARCH ---------------------------------
 
 	private static void leerVulnerabilidades() throws FileNotFoundException {
@@ -271,4 +304,3 @@ public class Main {
         }
 	}
 }
-
