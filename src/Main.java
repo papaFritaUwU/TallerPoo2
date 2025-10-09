@@ -34,8 +34,8 @@ public class Main {
         //hashearContraseña(String contraseña);
         String contraseñaHasheada = "";
         
-        for (Usuario u : usuarios) {           //& u.getContraseña().equals(contraseñaHasheada)
-        	if (u.getUsername().equals(username)) {
+        for (Usuario u : usuarios) {           
+        	if (u.getUsername().equals(username)) { //if (u.getUsername().equals(username) & u.getContraseña().equals(contraseñaHasheada))
     			if (u.getRol().equals("ADMIN")) {
     				menuAdmin();
     			} else {
