@@ -150,8 +150,8 @@ public class Main {
 		//Luego de la lectura entrega un veredicto de su nivel de riesgo y muestra por patalla cada puerto que posee una vulnerabilidad.
 		imprimirGuiones();
 		System.out.println("Nivel de riesgo de PCs");
-		int cantV = 0;
 		for (Pc pc : pcs) {
+			int cantV = 0;
 			for (Puerto p : pc.getPuertos()) {
 				cantV += p.getVulnerabilidades().size();
 			}
@@ -208,11 +208,18 @@ public class Main {
 	}
 
 	private static void agregarPC() {
-		//Esta función permite al usuario agregar un PC. además de crear los puertos que desee.
+		//Esta función permite al usuario agregar un PC. además de crear los puertos y vulnerabilidades que desee.
 		imprimirGuiones();
 		scan = new Scanner(System.in);
 		System.out.print("ID del PC: ");
-        String id = scan.nextLine();
+		String id = scan.nextLine();
+		for (Pc pc : pcs) {
+			if (pc.getId().equalsIgnoreCase(id)) {
+				System.out.println("PC ya registrada.");
+				return;
+			}
+		}
+		
         System.out.print("IP: ");
         String ip = scan.nextLine();
         System.out.print("Sistema operativo: ");
@@ -221,8 +228,15 @@ public class Main {
         Pc pcNuevo = new Pc(id, ip, so);
         pcs.add(pcNuevo);
         
-        System.out.print("¿Cuántos puertos desea agregar al PC? ");
+        System.out.print("¿Cuántos puertos desea agregar al PC? (min 1): ");
         int cantPuertos = Integer.valueOf(scan.nextLine());
+        
+        while (cantPuertos <= 0) {
+        	System.out.println("Cantidad ingresada incorrecta.");
+        	System.out.print("¿Cuántos puertos desea agregar al PC? (min 1): ");
+        	cantPuertos = Integer.valueOf(scan.nextLine());
+        }
+
         
         for (int i = 0; i < cantPuertos; i++) {
             System.out.print("Indique el número de puerto: ");
@@ -231,8 +245,23 @@ public class Main {
             System.out.print("Indique el estado (Abierto/Cerrado): ");
             String estado = scan.nextLine();
             Puerto p = new Puerto(id, numP, estado);
+            
+            System.out.print("¿Cuántas vulnerabilidades desea agregar?: ");
+            int cantV = Integer.valueOf(scan.nextLine());
+            
+            for (int j = 0; j < cantV; j++) {
+            	System.out.print("Indique la vulnerabilidad asociada: ");
+            	String vulnerabilidad = scan.nextLine();
+            	
+            	System.out.print("Indique la descripción de la vulnerabilidad: ");
+            	String descripcion = scan.nextLine();
+            	Vulnerabilidad  v = new Vulnerabilidad(numP, vulnerabilidad, descripcion);
+            	p.getVulnerabilidades().add(v);
+            }
+            
+            
             pcNuevo.getPuertos().add(p);
-            puertos.add(p); 
+            puertos.add(p);
         }
         System.out.println("PC agregado correctamente.");
         imprimirGuiones();
