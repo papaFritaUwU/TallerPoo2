@@ -1,99 +1,67 @@
-# 🧭💡 Proyecto TallerPoo2
+# 💻 Taller N°2 - Programación Orientada a Objetos  
+**II Semestre - 2025 | ITI - ICCI**
 
-## 🚀 Comandos básicos para trabajar con Git y GitHub
-### Antes que todo hay que guardar los cambios en el vsc con el ctrl + s !!
+---
 
-### 🔹 1️⃣ Ver el estado actual del proyecto
-```bash
-git status
-```
-Muestra qué cambió desde el último commit.
+## 👨‍🏫 Docentes
+- Alejandro Paolini Godoy  
+- Cristhian Rabi Reyes  
 
-### 🔹 2️⃣ Agregar todos los cambios nuevos o modificados
-```bash
-git add .
-```
-El punto (.) agrega todos los archivos cambiados.
+## 👨‍💻 Ayudantes
+- Daniel Durán García  
+- Nicolás Rojas Bustos  
 
-### 🔹 3️⃣ Guardar los cambios en un commit
-```bash
-git commit -m "Describe brevemente lo que hiciste"
-```
+---
 
-Ejemplo:
-git commit -m "Agregué validaciones en Usuario.java"
+## 👥 Integrantes
+- Ninibeth Pérez Cortés - 21.787.686-9 - ICCI - usuario GitHub: papaFritaUwU  
+- Rodrigo Reyes Alfaro - 22.123.808-7 - ICCI - usuario GitHub: rodrigoreyes-bit  
 
-### 🔹 4️⃣ Subir los cambios a GitHub
-```bash
-git push
-```
+---
 
-Envía tus commits locales al repositorio remoto (origin/main).
+## 🧠 Descripción del Taller
+Este proyecto simula una **herramienta de análisis y monitoreo de red** para la empresa ficticia *SecureNet Ltda.*, desarrollada por *EclipSec* como medida preventiva ante intentos de acceso no autorizados.
 
-### 🔹 5️⃣ Traer cambios nuevos desde GitHub (hechos por ti o tu compañero)
-```bash
-git pull origin main
-```
+El sistema fue implementado en **Java con Programación Orientada a Objetos (POO)** y permite:
+- Gestionar PCs y sus puertos asociados.
+- Analizar vulnerabilidades.
+- Simular escaneos de red.
+- Generar reportes de auditoría en un archivo `.txt`.
+- Ofrecer menús diferenciados para **Administrador** y **Usuario**.
 
-Actualiza tu copia local con la versión más reciente del repositorio remoto.
+---
 
-### 🔹 6️⃣ Ver el historial de commits (resumen)
-```bash
-git log --oneline
-```
+## 📂 Archivos incluidos
 
-### 🔹 7️⃣ Ver qué remoto está vinculado
-```bash
-git remote -v
-```
+- `pcs.txt` → Lista de PCs de la red (ID, IP, Sistema Operativo).  
+- `puertos.txt` → Estado de los puertos (ID, número, estado).  
+- `usuarios.txt` → Usuarios del sistema con contraseñas hasheadas (SHA-256 + Base64).  
+- `vulnerabilidades.txt` → Vulnerabilidades asociadas a cada puerto.  
+- `reportes.txt` → Archivo generado con los resultados de los escaneos.
+- `Diagrama de clase Taller2.drawio.pdf` → Diagrama de clases del código.
+- `Diagrama de dominio Taller 2.drawio.pdf` → Diagrama de dominio del código.
+- Carpeta `src/` → Código fuente Java del sistema.
 
-🧑‍🤝‍🧑 Si trabajas con otra persona
-🪄 Primera vez (solo una vez)
+---
 
-Tu compañero debe clonar el repo:
-```bash
-git clone https://github.com/papaFritaUwU/TallerPoo2.git
-cd TallerPoo2
-```
+## 🧩 Clases principales
 
-### 🔹 Antes de modificar
-```bash
-git pull origin main
-```
+| Clase | Descripción |
+|-------|--------------|
+| `Pc` | Representa un equipo dentro de la red con sus puertos. |
+| `Puerto` | Almacena el número, estado y vulnerabilidades asociadas. |
+| `Vulnerabilidad` | Describe una vulnerabilidad vinculada a un puerto. |
+| `Usuario` | Representa a los usuarios del sistema (Admin o User). |
+| `Main` | Clase principal que gestiona la lectura de archivos, login y menús. |
 
-### 🔹 Después de modificar
-```bash
-git add .
-git commit -m "Cambios hechos por [nombre]"
-git push
-```
+---
 
-### ⚠️ Si aparecen conflictos:
-```bash
-git pull origin main
-```
-# (resolver conflictos en VS Code)
-```bash
-git add .
-git commit -m "Resolví conflictos"
-git push
-```
-
-### 💾 5 Comandos mágicos (resumen)
-```bash
-git status
-git add .
-git commit -m "mensaje"
-git pull origin main
-git push
-```
-💬 Consejitos útiles
-💡 Guarda tus archivos antes de hacer git add.
-🚫 No subas carpetas pesadas ni archivos sensibles (.env, node_modules, etc.) → usa .gitignore.
-📁 Si trabajas en OneDrive y Git se comporta raro, mueve tu carpeta a:
-
-C:\Users\<tuUsuario>\Documents\TallerPoo2
-
-🧠 Usa mensajes de commit claros para identificar los cambios fácilmente.
-🌐 Si cambias de compu, solo necesitas clonar el repo y listo.
-:3
+## ✅ Notas finales
+- Proyecto implementado completamente en **Java con POO**.  
+- Código comentado y estructurado en clases y métodos según el modelo de dominio.  
+- Cumple con todos los requerimientos especificados en el enunciado del taller.
+  
+---
+✅ Notas
+- El proyecto está implementado en **Java (sin POO, solo sintaxis básica)**.  
+- Todo el código está comentado con una breve descripción de cada función. 
