@@ -60,8 +60,3 @@ El sistema fue implementado en **Java con Programación Orientada a Objetos (POO
 - Proyecto implementado completamente en **Java con POO**.  
 - Código comentado y estructurado en clases y métodos según el modelo de dominio.  
 - Cumple con todos los requerimientos especificados en el enunciado del taller.
-  
----
-✅ Notas
-- El proyecto está implementado en **Java (sin POO, solo sintaxis básica)**.  
-- Todo el código está comentado con una breve descripción de cada función. 
