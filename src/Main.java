@@ -17,11 +17,12 @@ import java.security.NoSuchAlgorithmException;
 
 public class Main {
 
-	private static Scanner scan = new Scanner(System.in);
+	private static Scanner scan;
 	private static ArrayList<Pc> pcs = new ArrayList<>();
     private static ArrayList<Usuario> usuarios = new ArrayList<>();
     private static ArrayList<Puerto> puertos = new ArrayList<>();
 	private static String username;
+	
 	public static void main(String[] args) throws FileNotFoundException, NoSuchAlgorithmException {
 		leerUsuario();
         leerPcs();
@@ -29,54 +30,49 @@ public class Main {
         leerVulnerabilidades();
         
         scan = new Scanner(System.in);
-    
-        Boolean Estado = false;
-        Usuario Invitado = null;
+        Boolean estado = false;
+        Usuario invitado = null;
         do {
-        	Estado = true;
-        	
+        	estado = true;
             System.out.print("Usuario: ");
             username = scan.nextLine();
         	System.out.print("Contraseña: ");
             String contraseña = scan.nextLine();
-            Invitado = null;
-            
+            invitado = null;
             
             for(Usuario u: usuarios) {
-            	
             	if (u.getUsername().equals(username)) {
-            		Invitado = u;
-            		
-            		Estado = true;
+            		invitado = u;
+            		estado = true;
             		break;
             		
             	}else {
-            		Estado = false;
+            		estado = false;
             	}
-            	
             }
             
- 
-            
-            if(Estado) {
-            	Boolean hash = EstadoHash(contraseña, Invitado);
+            if(estado) {
+            	Boolean hash = EstadoHash(contraseña, invitado);
             	
             	if(hash) {
-            		Estado = true;
-            		System.out.println("Acceso otorgado");
+            		estado = true;
+            		System.out.println("Acceso otorgado :).");
             		
             	}else {
-            		Estado = false;
-            		System.out.println("Contraseña equivocada");
+            		estado = false;
+            		System.out.println("Acceso denegado.");
+            		System.out.println("Contraseña equivocada.");
+            		return;
             	}
-
             } else {
-            	System.out.println("Ingrese un usuario valido.");
+            	System.out.println("Acceso denegado.");
+            	System.out.println("Usuario equivocado.");
+            	return;
             }
 
-        }while(Estado == false);
+        }while(estado == false);
         
-        if(Invitado.getRol().equals("ADMIN")) {
+        if(invitado.getRol().equals("ADMIN")) {
         	menuAdmin();
         }else {
         	menuUsuario();
@@ -85,8 +81,6 @@ public class Main {
 	}
 	
 	private static Boolean EstadoHash(String contraseña, Usuario usuario) throws NoSuchAlgorithmException {
-		
-		
 		String PassWord = contraseña;
         MessageDigest md = MessageDigest.getInstance("SHA-256");
         byte[] hashBytes = md.digest(PassWord.getBytes());
@@ -94,9 +88,7 @@ public class Main {
       
 		if(usuario.getContraseña().equals(textoHash)) {
 			return true;
-
 		}
-		
 		return false;
 	}
 
@@ -120,9 +112,10 @@ public class Main {
                 	break;
                 	
                 case 2:
-                	System.out.println("¿Qué quiere hacer?");
+                	System.out.println("\n¿Qué quiere hacer?");
                 	System.out.println("1. Agregar un PC");
                 	System.out.println("2. Eliminar un PC");
+                	System.out.print(">> ");
                 	int eleccion = Integer.valueOf(scan.nextLine());
                 	
                 	if (eleccion == 1) {
@@ -146,8 +139,6 @@ public class Main {
             }
         } while (opcion != 0);
     }
-	
-	
 	
 	private static void clasificarPCs() {
 		imprimirGuiones();
@@ -177,13 +168,64 @@ public class Main {
 	}
 	
 	private static void eliminarPC() {
-		// TODO Auto-generated method stub
-		
+		imprimirGuiones();
+		for (Pc pc : pcs) {
+			System.out.println("- " + pc.getId());
+		}
+		System.out.print("Ingrese el ID del PC a eliminar: ");
+		scan = new Scanner(System.in);
+        String idIngresado = scan.nextLine();
+        boolean encontrado = false;
+
+        for (int i = 0; i < pcs.size(); i++) {
+            if (pcs.get(i).getId().equals(idIngresado)) {
+                pcs.remove(i);
+                encontrado = true;
+                break;
+            }
+        }
+        for (int i = puertos.size() - 1; i >= 0; i--) {
+            if (puertos.get(i).getPc().equals(idIngresado)) {
+                puertos.remove(i);
+            }
+        }
+        if (encontrado) {
+        	System.out.println("PC y puertos asociados eliminados.");
+        } else {
+        	System.out.println("No se encontró un PC con ese ID.");
+        }
+        imprimirGuiones();
 	}
 
 	private static void agregarPC() {
-		// TODO Auto-generated method stub
-		
+		imprimirGuiones();
+		scan = new Scanner(System.in);
+		System.out.print("ID del PC: ");
+        String id = scan.nextLine();
+        System.out.print("IP: ");
+        String ip = scan.nextLine();
+        System.out.print("Sistema operativo: ");
+        String so = scan.nextLine();
+
+        Pc pcNuevo = new Pc(id, ip, so);
+        pcs.add(pcNuevo);
+        
+        System.out.print("¿Cuántos puertos desea agregar al PC? ");
+        int cantPuertos = Integer.valueOf(scan.nextLine());
+        
+        for (int i = 0; i < cantPuertos; i++) {
+            System.out.print("Indique el número de puerto: ");
+            int numP = Integer.valueOf(scan.nextLine());
+            
+            System.out.print("Indique el estado (Abierto/Cerrado): ");
+            String estado = scan.nextLine();
+            Puerto p = new Puerto(id, numP, estado);
+            pcNuevo.getPuertos().add(p);
+            puertos.add(p); 
+            //no se si agregar las vulnerabilidades mmmmm
+        }
+        System.out.println("PC agregado correctamente.");
+        imprimirGuiones();
 	}
 
 	//---------------------------------- MENU USUARIO -------------------------------------------
@@ -233,6 +275,7 @@ public class Main {
 		imprimirGuiones();
 		for (Pc pc : pcs) {
 			pc.imprimirPC();
+			System.out.println();
 		} imprimirGuiones();
 	}
 
@@ -240,8 +283,7 @@ public class Main {
 		imprimirGuiones();
 		int i = 1;
 		for(Pc p: pcs) {
-			System.out.println(i++ + ") " + p);
-
+			System.out.println(i++ + ") " + p.getId());
 		}
 		scan = new Scanner(System.in);
 		int opcion = 0;
@@ -259,20 +301,18 @@ public class Main {
 		}
 		String aux;
 		
-		System.out.println("Si desea continuar con el Escaneo indique la fecha de hoy con el esquema (dia/mes/año), de lo contrario escriba SALIR: ");
+		System.out.println("Si desea continuar con el escaneo indique la fecha de hoy con el esquema (DD/MM/AAAA), de lo contrario escriba SALIR: ");
 		aux = scan.nextLine();
 			
-		if(aux.equals("SALIR")) {
-			System.out.println("Escaneo Cancelado");
-
+		if(aux.equalsIgnoreCase("salir")) {
+			System.out.println("Escaneo Cancelado.");
 		
 		}else {
 			try {
-				
 	            FileWriter escribir = new FileWriter("reportes.txt", true);
 	            
 	            escribir.write("------------------------------------------\n");
-	            escribir.write(PCdeseado.toString()+"\n");
+	            escribir.write(PCdeseado.getId()+"\n");
 	            escribir.write("Puertos correspondientes al PC: \n");
 	            
 	            for(Puerto p: PCdeseado.getPuertos()) {
@@ -294,25 +334,20 @@ public class Main {
 	            }
 	            escribir.write("Fecha del Escaneo: " + aux + "\n");
  
-	            
-	            
 	            escribir.close();
-	            System.out.println("Reporte creado con exito en el archivo reportes.txt");
+	            System.out.println("Reporte creado con exito en el archivo reportes.txt.");
 	        } catch (IOException e) {
 	            e.printStackTrace();
 	        }
 		}
+		imprimirGuiones();
     }
 
 	private static int nivelRiesgo(Pc pc) {
 		int cantVulnerabilidad = 0;
-		
 		for(Puerto p: pc.getPuertos()) {
 			cantVulnerabilidad += p.getVulnerabilidades().size();
-			
 		}
-        	
-		
 		return cantVulnerabilidad;
 	}
 
