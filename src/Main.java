@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Base64;
 
 public class Main {
 
@@ -26,29 +27,72 @@ public class Main {
         leerVulnerabilidades();
         
         scan = new Scanner(System.in);
-        System.out.print("Usuario: ");
-        username = scan.nextLine();
-        Boolean encontrado = false;
+    
+        Boolean Estado = false;
+ 
+        do {
+        	Estado = true;
+        	
+            System.out.print("Usuario: ");
+            username = scan.nextLine();
+        	System.out.print("Contraseña: ");
+            String contraseña = scan.nextLine();
+            Usuario Invitado = null;
+            
+            for(Usuario u: usuarios) {
+            	
+            	if (u.getUsername().equals(username)) {
+            		Invitado = u;
+            		
+            		Estado = true;
+            		break;
+            		
+            	}else {
+            		Estado = false;
+            	}
+            	
+            }
+            
+ 
+            
+            if(Estado) {
+            	Boolean hash = EstadoHash(contraseña, Invitado);
+            	
+            	if(hash) {
+            		Estado = true;
+            		System.out.println("Acceso otorgado");
+            		
+            	}else {
+            		Estado = false;
+            		System.out.println("Contraseña equivocada");
+            	}
+
+            } else {
+            	System.out.println("Ingrese un usuario valido.");
+            }
+
+        }while(Estado == false);
         
-        System.out.print("Contraseña: ");
-        String contraseña = scan.nextLine();
-        //hacer función para hashear la contraseña
-        //hashearContraseña(String contraseña);
-        String contraseñaHasheada = "";
-        Boolean NoAcceso = true;
-        for (Usuario u : usuarios) {           //& u.getContraseña().equals(contraseñaHasheada)
-        	if (u.getUsername().equals(username)) {
-        		NoAcceso = false;
-    			if (u.getRol().equals("ADMIN")) {
-    				menuAdmin();
-    			} else {
-    				menuUsuario();
-    			}
-        	}
-        }
-        if (NoAcceso) {System.out.println("Acceso denegado. \nUsuario/Contraseña incorrecto.");}
+        
+        
+        
+        
 	}
 	
+	private static Boolean EstadoHash(String contraseña, Usuario usuario) {
+		
+		
+		String PassWord = contraseña;
+		String textoHash = Base64.getEncoder().encodeToString(PassWord.getBytes());
+		System.out.println(textoHash);
+		if(usuario.getContraseña().equals(textoHash)) {
+			return true;
+
+		}
+		
+		return false;
+	}
+
 	//---------------------------------- MENU ADMIN -------------------------------------------
 	
 	private static void menuAdmin() {
@@ -220,29 +264,31 @@ public class Main {
 				
 	            FileWriter escribir = new FileWriter("Metricas.txt", true);
 	            
+	            escribir.write("------------------------------------------\n");
 	            escribir.write(PCdeseado.toString()+"\n");
 	            escribir.write("Puertos correspondientes al PC: \n");
 	            
 	            for(Puerto p: PCdeseado.getPuertos()) {
 	            	escribir.write(p.toString()+"\n");
-	    			
-	    			
 	            }
-	            
 	            escribir.write("Usuario que solicito el escaneo: " + username + "\n");
 	            escribir.write("Nivel de Riesgo segun sus vulnerabilidades: \n");
 	            int nivel = nivelRiesgo(PCdeseado);
 	            
 	            if (nivel <= 1) {
-		            escribir.write("Bajo riesgo");
+		            escribir.write("Bajo riesgo \n");
 
 	            }else if(nivel <= 2) {
-		            escribir.write("Medio riesgo");
+		            escribir.write("Medio riesgo \n");
 	            	
 	            }else if(nivel >=3) {
-		            escribir.write("Alto riesgo");
+		            escribir.write("Alto riesgo \n");
 	            	
 	            }
+	            escribir.write("Fecha del Escaneo: " + aux + "\n");
+ 
+	            
+	            
 	            escribir.close();
 	        } catch (IOException e) {
 	            e.printStackTrace();
