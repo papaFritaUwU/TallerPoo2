@@ -12,6 +12,8 @@ import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Base64;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class Main {
 
@@ -20,7 +22,7 @@ public class Main {
     private static ArrayList<Usuario> usuarios = new ArrayList<>();
     private static ArrayList<Puerto> puertos = new ArrayList<>();
 	private static String username;
-	public static void main(String[] args) throws FileNotFoundException {
+	public static void main(String[] args) throws FileNotFoundException, NoSuchAlgorithmException {
 		leerUsuario();
         leerPcs();
         leerPuertos();
@@ -79,12 +81,15 @@ public class Main {
         
 	}
 	
-	private static Boolean EstadoHash(String contraseña, Usuario usuario) {
+	private static Boolean EstadoHash(String contraseña, Usuario usuario) throws NoSuchAlgorithmException {
 		
 		
 		String PassWord = contraseña;
-		String textoHash = Base64.getEncoder().encodeToString(PassWord.getBytes());
-		System.out.println(textoHash);
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
+        byte[] hashBytes = md.digest(PassWord.getBytes());
+        String textoHash = Base64.getEncoder().encodeToString(hashBytes);		
+        System.out.println(textoHash);
+		System.out.println(usuario.getContraseña());
 		if(usuario.getContraseña().equals(textoHash)) {
 			return true;
 
