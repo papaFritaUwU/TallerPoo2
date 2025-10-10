@@ -31,7 +31,7 @@ public class Main {
         scan = new Scanner(System.in);
     
         Boolean Estado = false;
- 
+        Usuario Invitado = null;
         do {
         	Estado = true;
         	
@@ -39,7 +39,8 @@ public class Main {
             username = scan.nextLine();
         	System.out.print("Contraseña: ");
             String contraseña = scan.nextLine();
-            Usuario Invitado = null;
+            Invitado = null;
+            
             
             for(Usuario u: usuarios) {
             	
@@ -75,10 +76,12 @@ public class Main {
 
         }while(Estado == false);
         
-        
-        
-        
-        
+        if(Invitado.getRol().equals("ADMIN")) {
+        	menuAdmin();
+        }else {
+        	menuUsuario();
+        }
+
 	}
 	
 	private static Boolean EstadoHash(String contraseña, Usuario usuario) throws NoSuchAlgorithmException {
@@ -88,8 +91,7 @@ public class Main {
         MessageDigest md = MessageDigest.getInstance("SHA-256");
         byte[] hashBytes = md.digest(PassWord.getBytes());
         String textoHash = Base64.getEncoder().encodeToString(hashBytes);		
-        System.out.println(textoHash);
-		System.out.println(usuario.getContraseña());
+      
 		if(usuario.getContraseña().equals(textoHash)) {
 			return true;
 
