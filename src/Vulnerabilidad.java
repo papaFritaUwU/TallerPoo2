@@ -1,16 +1,17 @@
+
 public class Vulnerabilidad {
 	private int puerto;
-	private String nombreV;
+	private String nombreVulnerabilidad;
 	private String descripcion;
 	
 	public Vulnerabilidad(int puerto, String nombreV, String descripcion) {
 		this.puerto = puerto;
-		this.nombreV = nombreV;
+		this.nombreVulnerabilidad = nombreV;
 		this.descripcion = descripcion;
 	}
 
 	public String getNombreV() {
-		return nombreV;
+		return nombreVulnerabilidad;
 	}
 
 	public String getDescripcion() {
@@ -20,6 +21,4 @@ public class Vulnerabilidad {
 	public int getPuerto() {
 		return puerto;
 	}
-	
-	
 }
