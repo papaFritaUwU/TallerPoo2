@@ -325,7 +325,7 @@ public class Main {
 		
 		}else {
 			try {
-	            FileWriter escribir = new FileWriter("reportes.txt", true);
+	            FileWriter escribir = new FileWriter("TallerPoo2-main/reportes.txt", true);
 	            
 	            escribir.write("------------------------------------------\n");
 	            escribir.write(PCdeseado.getId()+"\n");
@@ -455,7 +455,7 @@ public class Main {
 		//La función crea Vulnerabilidades de la clase Vulnerabilidad.
 		//Esta función separa cada linea del archivo mediante ".split" y ocupa los valores que se encuentran en el para satisfacer al constructor de la clase Vulnerabilidad.
 		//La función tambien las vulnerabilidades correspondientes a cada puerto mediante "for(Puerto p..)".
-		File file = new File("vulnerabilidades.txt");
+		File file = new File("TallerPoo2-main/vulnerabilidades.txt");
 		scan = new Scanner(file);
 		
 		while (scan.hasNextLine()) {
@@ -479,7 +479,7 @@ public class Main {
 		//La función crea Puertos de la clase Puerto y los agrega a la ArrayList "puertos".
 		//La función tambien agrega a cada PC de la lista pcs sus puertos correspondientes.
 		//Esta función separa cada linea del archivo mediante ".split" y ocupa los valores que se encuentran en el para satisfacer al constructor de la clase Puerto.
-        File file = new File("puertos.txt");
+        File file = new File("TallerPoo2-main/puertos.txt");
 		scan = new Scanner(file);
 		
 		while (scan.hasNextLine()) {
@@ -504,7 +504,7 @@ public class Main {
     	//Lectura del archivo pcs.txt.
     	//La función crea PCs de la clase PC y los agrega a la ArrayList "pcs".
 		//Esta función separa cada linea del archivo mediante ".split" y ocupa los valores que se encuentran en el para satisfacer al constructor de la clase PC.
-        File file = new File("pcs.txt");
+        File file = new File("TallerPoo2-main/pcs.txt");
 		scan = new Scanner(file);
 		
 		while (scan.hasNextLine()) {
@@ -522,7 +522,7 @@ public class Main {
     	//Lectura del archivo usuarios.txt.
     	//La función crea Usuarios de la clase Usuario y los agrega a la ArrayList "usuarios".
 		//Esta función separa cada linea del archivo mediante ".split" y ocupa los valores que se encuentran en el para satisfacer al constructor de la clase Usuario.
-		File file = new File("usuarios.txt");
+		File file = new File("TallerPoo2-main/usuarios.txt");
 		scan = new Scanner(file);
 		
 		while (scan.hasNextLine()) {
