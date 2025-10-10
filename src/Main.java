@@ -259,7 +259,7 @@ public class Main {
 		}
 		String aux;
 		
-		System.out.println("Si desea continuar con la Escaneo indique la fecha de hoy con el esquema (dia/mes/año), de lo contrario escriba SALIR: ");
+		System.out.println("Si desea continuar con el Escaneo indique la fecha de hoy con el esquema (dia/mes/año), de lo contrario escriba SALIR: ");
 		aux = scan.nextLine();
 			
 		if(aux.equals("SALIR")) {
@@ -269,7 +269,7 @@ public class Main {
 		}else {
 			try {
 				
-	            FileWriter escribir = new FileWriter("Metricas.txt", true);
+	            FileWriter escribir = new FileWriter("reportes.txt", true);
 	            
 	            escribir.write("------------------------------------------\n");
 	            escribir.write(PCdeseado.toString()+"\n");
@@ -297,6 +297,7 @@ public class Main {
 	            
 	            
 	            escribir.close();
+	            System.out.println("Reporte creado con exito en el archivo reportes.txt");
 	        } catch (IOException e) {
 	            e.printStackTrace();
 	        }
