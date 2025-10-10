@@ -18,7 +18,7 @@ public class Main {
 	private static ArrayList<Pc> pcs = new ArrayList<>();
     private static ArrayList<Usuario> usuarios = new ArrayList<>();
     private static ArrayList<Puerto> puertos = new ArrayList<>();
-	
+	private static String username;
 	public static void main(String[] args) throws FileNotFoundException {
 		leerUsuario();
         leerPcs();
@@ -27,7 +27,7 @@ public class Main {
         
         scan = new Scanner(System.in);
         System.out.print("Usuario: ");
-        String username = scan.nextLine();
+        username = scan.nextLine();
         Boolean encontrado = false;
         
         System.out.print("Contraseña: ");
@@ -211,19 +211,56 @@ public class Main {
 		System.out.println("Si desea continuar con la Escaneo indique la fecha de hoy con el esquema (dia/mes/año), de lo contrario escriba SALIR: ");
 		aux = scan.nextLine();
 			
-		if(aux != "SALIR") {
+		if(aux.equals("SALIR")) {
+			System.out.println("Escaneo Cancelado");
+
+		
+		}else {
 			try {
 				
-	            FileWriter writer = new FileWriter("Metricas.txt", true);
-	            writer.close();
+	            FileWriter escribir = new FileWriter("Metricas.txt", true);
+	            
+	            escribir.write(PCdeseado.toString()+"\n");
+	            escribir.write("Puertos correspondientes al PC: \n");
+	            
+	            for(Puerto p: PCdeseado.getPuertos()) {
+	            	escribir.write(p.toString()+"\n");
+	    			
+	    			
+	            }
+	            
+	            escribir.write("Usuario que solicito el escaneo: " + username + "\n");
+	            escribir.write("Nivel de Riesgo segun sus vulnerabilidades: \n");
+	            int nivel = nivelRiesgo(PCdeseado);
+	            
+	            if (nivel <= 1) {
+		            escribir.write("Bajo riesgo");
+
+	            }else if(nivel <= 2) {
+		            escribir.write("Medio riesgo");
+	            	
+	            }else if(nivel >=3) {
+		            escribir.write("Alto riesgo");
+	            	
+	            }
+	            escribir.close();
 	        } catch (IOException e) {
 	            e.printStackTrace();
 	        }
-		
-		}else {
-			System.out.println("Escaneo Cancelado");
 		}
     }
+
+	private static int nivelRiesgo(Pc pc) {
+		int cantVulnerabilidad = 0;
+		
+		for(Puerto p: pc.getPuertos()) {
+			cantVulnerabilidad += p.getVulnerabilidades().size();
+			
+		}
+        	
+		
+		return cantVulnerabilidad;
+	}
 
 	private static void verTotalPuertosAbiertos() {
 		System.out.println("Total de puertos abiertos en todos los PCs de la red");
