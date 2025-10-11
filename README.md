@@ -60,3 +60,5 @@ El sistema fue implementado en **Java con Programación Orientada a Objetos (POO
 - Proyecto implementado completamente en **Java con POO**.  
 - Código comentado y estructurado en clases y métodos según el modelo de dominio.  
 - Cumple con todos los requerimientos especificados en el enunciado del taller.
+- Los primeros avances del proyecto fueron avanzados en VSC ocupando la expansión LiveShare, por 
+  lo que muchos de los commits están a nombre de "papafritaFritaUwU" ya que ella fue la Host de estas sesión.
