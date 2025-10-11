@@ -363,7 +363,7 @@ public class Main {
 	            for(Puerto p: PCdeseado.getPuertos()) {
 	            	escribir.write(p.toString()+"\n");
 	            }
-	            escribir.write("Usuario que solicito el escaneo: " + username + "\n");
+	            escribir.write("Usuario que solicitó el escaneo: " + username + "\n");
 	            escribir.write("Nivel de Riesgo segun sus vulnerabilidades: \n");
 	            int nivel = nivelRiesgo(PCdeseado);
 	            
